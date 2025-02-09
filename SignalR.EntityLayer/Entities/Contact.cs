@@ -13,6 +13,7 @@ namespace SignalR.EntityLayer.Entities
 		public string Phone { get; set; }
 		public string Mail { get; set; }
 		public string FooterDescription { get; set; }
-		}
+
 	}
 }
+
