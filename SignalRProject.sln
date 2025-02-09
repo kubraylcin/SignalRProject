@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRWebApi", "SignalRWeb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRWebUI", "SignalRWebUI\SignalRWebUI.csproj", "{4F233453-5387-4571-8528-719EECA11C0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.EntityLayer", "SignalR.EntityLayer\SignalR.EntityLayer.csproj", "{1147DA39-FF5D-4283-8801-71841DF93EE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4F233453-5387-4571-8528-719EECA11C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F233453-5387-4571-8528-719EECA11C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F233453-5387-4571-8528-719EECA11C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1147DA39-FF5D-4283-8801-71841DF93EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1147DA39-FF5D-4283-8801-71841DF93EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1147DA39-FF5D-4283-8801-71841DF93EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1147DA39-FF5D-4283-8801-71841DF93EE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
