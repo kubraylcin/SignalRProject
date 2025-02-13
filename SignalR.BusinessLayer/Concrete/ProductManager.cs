@@ -39,7 +39,7 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TUpdate(Product entity)
 		{
-			return  _productDal.Update(entity);
+			 _productDal.Update(entity);
 		}
 	}
 }
