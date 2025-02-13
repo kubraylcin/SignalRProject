@@ -31,6 +31,18 @@ builder.Services.AddScoped<IProductDal, EfProductDal>();
 builder.Services.AddScoped<IFeatureService, FeatureManager>();
 builder.Services.AddScoped<IFeatureDal, EfFeatureDal>();
 
+// Reservation için baðýmlýlýk
+builder.Services.AddScoped<IReservationService, ReservationManager>();
+builder.Services.AddScoped<IReservationDal, EfReservationDal>();
+
+// SocialMedia için baðýmlýlýk
+builder.Services.AddScoped<ISocialMediaService, SocialMediaManager>();
+builder.Services.AddScoped<ISocialMediaDal, EfSocialMediaDal>();
+
+// Testimonial için baðýmlýlýk
+builder.Services.AddScoped<ITestimonialService, TestimonialManager>();
+builder.Services.AddScoped<ITestimonialDal, EfTestimonialDal>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
