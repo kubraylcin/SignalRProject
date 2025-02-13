@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace SignalR.DataAccessLayer.Abstract
 {
+	
 	public interface IProductDal : IGenericDal<Product>
 	{
+		//entity özel methotlar 
+		//ürünleri category adlarıyla beraber getirmek için
+		List<Product> GetProductsWithCategroies();
 	}
 }

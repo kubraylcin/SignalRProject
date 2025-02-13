@@ -4,6 +4,7 @@ using SignalR.EntityLayer.Entities;
 
 namespace SignalRWebApi.Mapping
 {
+
 	public class ProductMapping:Profile
 	{
         public ProductMapping()
@@ -12,6 +13,7 @@ namespace SignalRWebApi.Mapping
 			CreateMap<Product, CreateProductDto>().ReverseMap();
 			CreateMap<Product, UpdateProductDto>().ReverseMap();
 			CreateMap<Product, GetProductDto>().ReverseMap();
+			CreateMap<Product, ResultProductWithCategory>().ReverseMap();
 		}
     }
 }

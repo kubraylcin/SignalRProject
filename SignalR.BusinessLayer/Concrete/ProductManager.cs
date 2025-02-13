@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 
 namespace SignalR.BusinessLayer.Concrete
 {
+
 	public class ProductManager : IProductService
 	{
 		private readonly IProductDal _productDal;
+
 
 		public ProductManager(IProductDal productDal)
 		{
@@ -35,6 +37,11 @@ namespace SignalR.BusinessLayer.Concrete
 		public List<Product> TGetListAll()
 		{
 			return _productDal.GetListAll();
+		}
+
+		public List<Product> TGetProductsWithCategroies()
+		{
+			return _productDal.GetProductsWithCategroies();
 		}
 
 		public void TUpdate(Product entity)

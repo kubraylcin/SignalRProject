@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SignalR.BusinessLayer.Abstract;
+using SignalR.DataAccessLayer.Concrete;
 using SignalR.DtoLayer.ProductDto;
 using SignalR.EntityLayer.Entities;
 
 namespace SignalRWebApi.Controllers
 {
+	
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ProductController : ControllerBase
@@ -27,6 +30,22 @@ namespace SignalRWebApi.Controllers
 			var productList = _productService.TGetListAll();
 			var result = _mapper.Map<List<ResultProductDto>>(productList);
 			return Ok(result);
+		}
+		[HttpGet("ProductListWithCategory")]
+		public IActionResult ProductListWithCategroy()
+		{
+			var context = new SignalRContext();
+			var values = context.Products.Include(x => x.Category).Select(y => new ResultProductWithCategory
+			{
+				Description = y.Description,
+				ImageUrl = y.ImageUrl,
+				Price = y.Price,
+				ProductId = y.ProductId,
+				ProductName = y.ProductName,
+				ProductStatus = y.ProductStatus,
+				CategoryName = y.Category.CategoryName,
+			});
+			return Ok(values.ToList());
 		}
 
 		// Yeni bir ürün oluştur (POST)
