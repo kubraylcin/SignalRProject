@@ -34,21 +34,15 @@
 										<td>@item.CategoryId</td>
 										<td>@item.CategoryName</td>
 										<td>@item.Status</td>
-										<td><a href="#" class="btn btn-outline-danger">Sil</a></td>
-										<td><a href="#" class="btn btn-outline-success">Güncelle</a></td>
+										<td><a href="/Category/DeleteCategory/@item.CategoryId" class="btn btn-outline-danger">Sil</a></td>
+										<td><a href="/Category/UpdateCategory/@item.CategoryId" class="btn btn-outline-success">Güncelle</a></td>
 									</tr>
 								}	
 							</tbody>
 						</table>
-						<a href="#" class="btn btn-outline-primary">Yeni Kategori Girişi</a>
+						<a href="/Category/CreateCategory/" class="btn btn-outline-primary">Yeni Kategori Girişi</a>
 					</div>
-				</div>
-
-
-			</div>
-			<div class="col-md-6">
-
-				
+				</div>			
 			</div>
 		</div>
 	</div>
