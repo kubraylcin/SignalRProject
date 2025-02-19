@@ -17,6 +17,8 @@ namespace SignalRWebApi.Controllers
 		private readonly IProductService _productService;
 		private readonly IMapper _mapper;
 
+		public object Description { get; private set; }
+
 		public ProductController(IProductService productService, IMapper mapper)
 		{
 			_productService = productService;
@@ -61,15 +63,18 @@ namespace SignalRWebApi.Controllers
 		[HttpPut("{id}")]
 		public IActionResult UpdateProduct(int id, UpdateProductDto updateProductDto)
 		{
-			var product = _productService.TGetById(id);
-			if (product == null)
+			_productService.TUpdate(new Product()
 			{
-				return NotFound("Güncellenecek ürün bulunamadı");
-			}
+				Description = updateProductDto.Description,
+				ImageUrl = updateProductDto.ImageUrl,
+				Price = updateProductDto.Price,
+				ProductId = updateProductDto.ProductId,
+				ProductName = updateProductDto.ProductName,
+				ProductStatus = updateProductDto.ProductStatus,
+				CategoryId= updateProductDto.CategoryId,
 
-			_mapper.Map(updateProductDto, product);
-			_productService.TUpdate(product);
-			return Ok("Ürün başarıyla güncellendi");
+			});
+			return Ok("ürün  bilgisi güncellendi ");
 		}
 
 		// Bir ürünü sil (DELETE)
