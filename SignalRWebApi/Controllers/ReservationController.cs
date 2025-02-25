@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.ReservationDto;
 using SignalR.EntityLayer.Entities;
@@ -13,66 +11,64 @@ namespace SignalRWebApi.Controllers
 	{
 
 		private readonly IReservationService _reservationService;
-		private readonly IMapper _mapper;
 
-		public ReservationController(IReservationService reservationService, IMapper mapper)
+		public ReservationController(IReservationService reservationService)
 		{
 			_reservationService = reservationService;
-			_mapper = mapper;
 		}
 
 		[HttpGet]
 		public IActionResult ReservationList()
 		{
-			var reservationList = _reservationService.TGetListAll();
-			var result = _mapper.Map<List<ResultReservationDto>>(reservationList);
-			return Ok(result);
+			var values = _reservationService.TGetListAll();
+			return Ok(values);
 		}
 
 		[HttpPost]
 		public IActionResult CreateReservation(CreateReservationDto createReservationDto)
 		{
-			var reservation = _mapper.Map<Reservation>(createReservationDto);
-			_reservationService.TAdd(reservation);
-			return CreatedAtAction(nameof(GetReservation), new { id = reservation.ReservationId }, "Rezervasyon başarıyla eklendi");
-		}
-
-		[HttpPut("{id}")]
-		public IActionResult UpdateReservation(int id, UpdateReservationDto updateReservationDto)
-		{
-			var reservation = _reservationService.TGetById(id);
-			if (reservation == null)
+			Reservation reservation = new Reservation()
 			{
-				return NotFound("Güncellenecek rezervasyon bulunamadı");
-			}
-
-			_mapper.Map(updateReservationDto, reservation);
-			_reservationService.TUpdate(reservation);
-			return Ok("Rezervasyon başarıyla güncellendi");
+				Email = createReservationDto.Email,
+				Date = createReservationDto.Date,
+				Name = createReservationDto.Name,
+				PersonCount = createReservationDto.PersonCount,
+				Phone = createReservationDto.Phone,
+			};
+			_reservationService.TAdd(reservation);
+			return Ok("Rezervasyon Yapıldı");
 		}
 
 		[HttpDelete("{id}")]
 		public IActionResult DeleteReservation(int id)
 		{
-			var reservation = _reservationService.TGetById(id);
-			if (reservation == null)
-			{
-				return NotFound("Rezervasyon bulunamadı");
-			}
-			_reservationService.TDelete(reservation);
-			return Ok("Rezervasyon başarıyla silindi");
+			var value = _reservationService.TGetById(id);
+			_reservationService.TDelete(value);
+			return Ok("Rezervasyon silindi");
 		}
 
+		[HttpPut]
+		public IActionResult UpdateReservation(UpdateReservationDto updateReservationDto)
+		{
+			Reservation reservation = new Reservation()
+			{
+				Email = updateReservationDto.Email,
+				ReservationId = updateReservationDto.ReservationId,
+				Name = updateReservationDto.Name,
+				Phone = updateReservationDto.Phone,
+				PersonCount = updateReservationDto.PersonCount,
+				Date = updateReservationDto.Date,
+			};
+
+			_reservationService.TUpdate(reservation);
+			return Ok("Rezervasyon Güncellendi");
+		}
 		[HttpGet("{id}")]
 		public IActionResult GetReservation(int id)
 		{
-			var reservation = _reservationService.TGetById(id);
-			if (reservation == null)
-			{
-				return NotFound("Rezervasyon bulunamadı");
-			}
-			var result = _mapper.Map<ResultReservationDto>(reservation);
-			return Ok(result);
+			var value = _reservationService.TGetById(id);
+			return Ok(value);
 		}
 	}
 }
+
