@@ -13,7 +13,6 @@ namespace SignalRWebApi.Controllers
 	{
 		private readonly ISocialMediaService _socialMediaService;
 		private readonly IMapper _mapper;
-
 		public SocialMediaController(ISocialMediaService socialMediaService, IMapper mapper)
 		{
 			_socialMediaService = socialMediaService;
@@ -23,55 +22,44 @@ namespace SignalRWebApi.Controllers
 		[HttpGet]
 		public IActionResult SocialMediaList()
 		{
-			var socialMediaList = _socialMediaService.TGetListAll();
-			var result = _mapper.Map<List<ResultSocialMediaDto>>(socialMediaList);
-			return Ok(result);
+			var value = _mapper.Map<List<ResultSocialMediaDto>>(_socialMediaService.TGetListAll());
+			return Ok(value);
 		}
-
 		[HttpPost]
 		public IActionResult CreateSocialMedia(CreateSocialMediaDto createSocialMediaDto)
 		{
-			var socialMedia = _mapper.Map<SocialMedia>(createSocialMediaDto);
-			_socialMediaService.TAdd(socialMedia);
-			return CreatedAtAction(nameof(GetSocialMedia), new { id = socialMedia.SocialMediaId }, "Sosyal medya bilgisi başarıyla eklendi");
-		}
-
-		[HttpPut("{id}")]
-		public IActionResult UpdateSocialMedia(int id, UpdateSocialMediaDto updateSocialMediaDto)
-		{
-			var socialMedia = _socialMediaService.TGetById(id);
-			if (socialMedia == null)
+			_socialMediaService.TAdd(new SocialMedia()
 			{
-				return NotFound("Güncellenecek sosyal medya bilgisi bulunamadı");
-			}
-
-			_mapper.Map(updateSocialMediaDto, socialMedia);
-			_socialMediaService.TUpdate(socialMedia);
-			return Ok("Sosyal medya bilgisi başarıyla güncellendi");
+				Icon = createSocialMediaDto.Icon,
+				Title = createSocialMediaDto.Title,
+				Url = createSocialMediaDto.Url
+			});
+			return Ok("Sosyal Medya Bilgisi Eklendi");
 		}
-
 		[HttpDelete("{id}")]
 		public IActionResult DeleteSocialMedia(int id)
 		{
-			var socialMedia = _socialMediaService.TGetById(id);
-			if (socialMedia == null)
-			{
-				return NotFound("Sosyal medya bilgisi bulunamadı");
-			}
-			_socialMediaService.TDelete(socialMedia);
-			return Ok("Sosyal medya bilgisi başarıyla silindi");
+			var value = _socialMediaService.TGetById(id);
+			_socialMediaService.TDelete(value);
+			return Ok("Sosyal Medya Bilgisi Silindi");
 		}
-
 		[HttpGet("{id}")]
 		public IActionResult GetSocialMedia(int id)
 		{
-			var socialMedia = _socialMediaService.TGetById(id);
-			if (socialMedia == null)
+			var value = _socialMediaService.TGetById(id);
+			return Ok(value);
+		}
+		[HttpPut]
+		public IActionResult UpdateSocialMedia(UpdateSocialMediaDto updateSocialMediaDto)
+		{
+			_socialMediaService.TUpdate(new SocialMedia()
 			{
-				return NotFound("Sosyal medya bilgisi bulunamadı");
-			}
-			var result = _mapper.Map<ResultSocialMediaDto>(socialMedia);
-			return Ok(result);
+				Icon = updateSocialMediaDto.Icon,
+				Title = updateSocialMediaDto.Title,
+				Url = updateSocialMediaDto.Url,
+				SocialMediaId = updateSocialMediaDto.SocialMediaId
+			});
+			return Ok("Sosyal Medya Bilgisi Güncellendi");
 		}
 	}
 }

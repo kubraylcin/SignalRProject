@@ -23,55 +23,56 @@ namespace SignalRWebApi.Controllers
 		[HttpGet]
 		public IActionResult TestimonialList()
 		{
-			var testimonialList = _testimonialService.TGetListAll();
-			var result = _mapper.Map<List<ResultTestimonialDto>>(testimonialList);
-			return Ok(result);
+			var value = _mapper.Map<List<ResultTestimonialDto>>(_testimonialService.TGetListAll());
+			return Ok(value);
 		}
 
 		[HttpPost]
 		public IActionResult CreateTestimonial(CreateTestimonialDto createTestimonialDto)
 		{
-			var testimonial = _mapper.Map<Testimonial>(createTestimonialDto);
-			_testimonialService.TAdd(testimonial);
-			return CreatedAtAction(nameof(GetTestimonial), new { id = testimonial.TestimonialId }, "Testimonial başarıyla eklendi");
-		}
-
-		[HttpPut("{id}")]
-		public IActionResult UpdateTestimonial(int id, UpdateTestimonialDto updateTestimonialDto)
-		{
-			var testimonial = _testimonialService.TGetById(id);
-			if (testimonial == null)
+			_testimonialService.TAdd(new Testimonial()
 			{
-				return NotFound("Güncellenecek testimonial bulunamadı");
-			}
+				Comment = createTestimonialDto.Comment,
+				ImageUrl = createTestimonialDto.ImageUrl,
+				Name = createTestimonialDto.Name,
+				Status = createTestimonialDto.Status,
+				Title = createTestimonialDto.Title,
+			});
 
-			_mapper.Map(updateTestimonialDto, testimonial);
-			_testimonialService.TUpdate(testimonial);
-			return Ok("Testimonial başarıyla güncellendi");
+			return Ok("Müşteri Yorum Bilgisi Eklendi");
 		}
 
 		[HttpDelete("{id}")]
+
 		public IActionResult DeleteTestimonial(int id)
 		{
-			var testimonial = _testimonialService.TGetById(id);
-			if (testimonial == null)
-			{
-				return NotFound("Testimonial bulunamadı");
-			}
-			_testimonialService.TDelete(testimonial);
-			return Ok("Testimonial başarıyla silindi");
+			var value = _testimonialService.TGetById(id);
+			_testimonialService.TDelete(value);
+			return Ok("Müşteri Yorum Silindi");
 		}
 
 		[HttpGet("{id}")]
 		public IActionResult GetTestimonial(int id)
 		{
-			var testimonial = _testimonialService.TGetById(id);
-			if (testimonial == null)
+			var value = _testimonialService.TGetById(id);
+
+			return Ok(value);
+		}
+
+		[HttpPut]
+		public IActionResult UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
+		{
+			_testimonialService.TUpdate(new Testimonial()
 			{
-				return NotFound("Testimonial bulunamadı");
-			}
-			var result = _mapper.Map<ResultTestimonialDto>(testimonial);
-			return Ok(result);
+				Comment = updateTestimonialDto.Comment,
+				ImageUrl = updateTestimonialDto.ImageUrl,
+				Name = updateTestimonialDto.Name,
+				Status = updateTestimonialDto.Status,
+				Title = updateTestimonialDto.Title,
+				TestimonialId = updateTestimonialDto.TestimonialId
+			});
+
+			return Ok("Müşteri Yorum Bilgisi Güncellendi");
 		}
 	}
 }
