@@ -19,56 +19,57 @@ namespace SignalRWebApi.Controllers
 			_discountService = discountService;
 			_mapper = mapper;
 		}
+
 		[HttpGet]
 		public IActionResult DiscountList()
 		{
-			var discountList = _discountService.TGetListAll();
-			var result = _mapper.Map<List<ResultDiscountDto>>(discountList);
-			return Ok(result);
+			var value = _mapper.Map<List<ResultDiscountDto>>(_discountService.TGetListAll());
+			return Ok(value);
 		}
+
 		[HttpPost]
 		public IActionResult CreateDiscount(CreateDiscountDto createDiscountDto)
 		{
-			var discount = _mapper.Map<Discount>(createDiscountDto);
-			_discountService.TAdd(discount);
-			return Ok("İndirimler eklendi");
+			_discountService.TAdd(new Discount()
+			{
+
+				Amount = createDiscountDto.Amount,
+				Description = createDiscountDto.Description,
+				ImageUrl = createDiscountDto.ImageUrl,
+				Title = createDiscountDto.Title,
+			});
+
+			return Ok("İndirim Bilgisi Eklendi");
 		}
-		[HttpDelete("{id}")]
+
+		[HttpDelete("{Id}")]
+
 		public IActionResult DeleteDiscount(int id)
 		{
-			var discount = _discountService.TGetById(id);
-			if (discount == null)
-			{
-				return NotFound("İndirim bulunamadı");
-			}
-			_discountService.TDelete(discount);
-			return Ok("İndirim silindi");
+			var value = _discountService.TGetById(id);
+			_discountService.TDelete(value);
+			return Ok("İndirim bilgisi Silindi");
 		}
-
-		[HttpPut("{id}")]
-		public IActionResult UpdateDiscount(int id, UpdateDiscountDto updateDiscountDto)
+		[HttpPut]
+		public IActionResult UpdateDiscount(UpdateDiscountDto updateDiscountDto)
 		{
-			var discount = _discountService.TGetById(id);
-			if (discount == null)
+			_discountService.TUpdate(new Discount()
 			{
-				return NotFound("Güncellenecek indirim bulunamadı");
-			}
+				Amount = updateDiscountDto.Amount,
+				Description = updateDiscountDto.Description,
+				ImageUrl = updateDiscountDto.ImageUrl,
+				Title = updateDiscountDto.Title,
+				DiscountId = updateDiscountDto.DiscountId,
+			});
 
-			_mapper.Map(updateDiscountDto, discount);
-			_discountService.TUpdate(discount);
-			return Ok("İndirim güncellendi");
+			return Ok("İndirim Bilgisi Güncellendi");
 		}
-
-		[HttpGet("{id}")]
-		public IActionResult GetDiscount(int id)
+		[HttpGet("{Id}")]
+		public IActionResult GetDiscount(int Id)
 		{
-			var discount = _discountService.TGetById(id);
-			if (discount == null)
-			{
-				return NotFound("İndirim bulunamadı");
-			}
-			var result = _mapper.Map<ResultDiscountDto>(discount);
-			return Ok(result);
+			var value = _discountService.TGetById(Id);
+
+			return Ok(value);
 		}
 	}
 }

@@ -1,0 +1,48 @@
+﻿
+@model UpdateDiscountDto
+@{
+    ViewData["Title"] = "UpdateDiscount";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">İndirim Güncelleme İşlemleri</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">İndirim Güncelle</div>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" asp-for="DiscountId" /> <!-- Güncellenen ID için -->
+                            
+                            <div class="form-group">
+                                <label for="title">Ürün Adını Güncelle</label>
+                                <input type="text" class="form-control" asp-for="Title" id="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">İndirim Oranını Güncelle </label>
+                                <input type="number" class="form-control" asp-for="Amount" id="amount">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Açıklamayı Güncelle </label>
+                                <textarea class="form-control" asp-for="Description" id="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="imageUrl">Ürün Görselini Güncelle</label>
+                                <input type="text" class="form-control" asp-for="ImageUrl" id="imageUrl">
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-primary">Güncellemeyi Kaydet</button>
+                            <a href="/Discount/Index" class="btn btn-danger">İptal</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
