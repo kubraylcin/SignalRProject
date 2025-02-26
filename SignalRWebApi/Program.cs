@@ -3,9 +3,24 @@ using SignalR.BusinessLayer.Concrete;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.DataAccessLayer.EntityFramework;
+using SignalRWebApi.Hubs;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(opt =>
+{
+    //cors=? 
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyHeader()//gelen herhangi bir baþlýða izin ver
+        .AllowAnyMethod()
+        .SetIsOriginAllowed((host) => true)
+        .AllowCredentials();
+
+    });
+});
+builder.Services.AddSignalR();
+
 
 // Add services to the container.
 builder.Services.AddDbContext<SignalRContext>();
@@ -56,11 +71,15 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
+app.UseCors("CorsPolicy"); //keyi çaðýrdýk yukarda tanýmlanan
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<SignalRHub>("/signalrhub"); //bu enpoint localhost://1234/signalrhub istekte bulunacaðýmýz yeri gösteriyorz
 
 app.Run();
+//istekte buludnuðumuz 
+//localhost://1234/swagger/catgeory/ýndex
+//localhost://1234/signalrhub istekte bulunduðumuz
