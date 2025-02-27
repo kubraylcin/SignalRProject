@@ -20,9 +20,17 @@
                             $(document).ready(() => {
                                 var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7087/SignalRHub").build();
                                 $("#connstatus").text(connection.state);
+                                
                                 connection.start().then(() => {
                                     $("#connstatus").text(connection.state);
+                                connection.invoke("SendCategoryCount");
                                 }).catch(err => { console.log(err); });
+
+                                
+                                connection.on("ReceiveCategoryCount", (value)=> {
+                                    $("#categorycount").text(value);
+
+                            })
 
                             });</script>
                     </div>
@@ -34,5 +42,6 @@
 <div class="row">
     <div class="col-md-8 offset-2">
         <div class="alert alert-success">Bağlantının Durumu: <strong id="connstatus"></strong></div>
+        <div class="alert alert-info">Kategori Sayısı <strong id="categorycount"></strong></div>
     </div>
 </div>
