@@ -48,6 +48,21 @@ namespace SignalRWebApi.Controllers
 		{
 			return Ok(_productService.TProducCountByNameDrink());
 		}
+		[HttpGet("ProductPriceAvg")]
+		public IActionResult ProductPriceAvg()
+		{
+			return Ok(_productService.TProductPriceAvg());
+		}
+		[HttpGet("ProductNamePriceMax")]
+		public IActionResult ProductPriceMax()
+		{
+			return Ok(_productService.TProductNamePriceMax());
+		}
+		[HttpGet("ProductNamePriceMin")]
+		public IActionResult ProductPriceMin()
+		{
+			return Ok(_productService.TProductNamePriceMin());
+		}
 		[HttpGet("ProductListWithCategory")]
 		public IActionResult ProductListWithCategroy()
 		{
