@@ -33,6 +33,11 @@ namespace SignalRWebApi.Controllers
 			var result = _mapper.Map<List<ResultProductDto>>(productList);
 			return Ok(result);
 		}
+		[HttpGet("ProductCount")]
+		public IActionResult ProductCount() 
+		{ 
+			return Ok(_productService.TProductCount());
+		}
 		[HttpGet("ProductListWithCategory")]
 		public IActionResult ProductListWithCategroy()
 		{

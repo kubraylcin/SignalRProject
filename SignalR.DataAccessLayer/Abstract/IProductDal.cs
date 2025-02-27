@@ -13,5 +13,6 @@ namespace SignalR.DataAccessLayer.Abstract
 		//entity özel methotlar 
 		//ürünleri category adlarıyla beraber getirmek için
 		List<Product> GetProductsWithCategroies();
+		public int ProductCount();
 	}
 }
