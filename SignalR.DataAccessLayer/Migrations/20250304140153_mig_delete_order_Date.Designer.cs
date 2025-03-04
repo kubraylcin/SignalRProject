@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalR.DataAccessLayer.Concrete;
 
@@ -11,9 +12,10 @@ using SignalR.DataAccessLayer.Concrete;
 namespace SignalR.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRContext))]
-    partial class SignalRContextModelSnapshot : ModelSnapshot
+    [Migration("20250304140153_mig_delete_order_Date")]
+    partial class mig_delete_order_Date
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -330,26 +332,6 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.HasKey("SocialMediaId");
 
                     b.ToTable("SocialMedias");
-                });
-
-            modelBuilder.Entity("SignalR.EntityLayer.Entities.TableNumber", b =>
-                {
-                    b.Property<int>("TableNumberId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TableNumberId"), 1L, 1);
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TableName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TableNumberId");
-
-                    b.ToTable("TableNumbers");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Testimonial", b =>
