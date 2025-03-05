@@ -3,9 +3,129 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 <div class="content">
 	<div class="container-fluid">
-		<h4 class="page-title">Dashboard</h4>
+
+		<script type="text/javascript">
+			$(document).ready(() => {
+				var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7087/SignalRHub").build();
+				$("#connstatus").text(connection.state);
+
+				connection.start().then(() => {
+					$("#connstatus").text(connection.state);
+					setInterval(() => {
+						connection.invoke("SendCategoryCount");
+						connection.invoke("SendProductCount");
+						connection.invoke("ActivePassiveCategoryCount");
+					}, 1000);
+
+				}).catch(err => { console.log(err); });
+
+
+				connection.on("ReceiveCategoryCount", (value) => {
+					$("#categorycount").text(value);
+
+				});
+				connection.on("ReceiveProductCount", (value2) => {
+					$("#productcount").text(value2);
+
+				});
+				connection.on("ReceivePassiveCategoryCount", (value4) => {
+					$("#passivecategorycount").text(value4);
+
+				});
+				connection.on("ReceiveActiveCategoryCount", (value3) => {
+					$("#activecategorycount").text(value3);
+
+				});
+
+			});</script>
+
+
+		<h4 class="page-title">Anlık İstatistik Sayfası</h4>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="card card-stats card-warning">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-tags"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Kategegori Sayısı</p>
+									<h4 class="card-title" id="categorycount"></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-stats card-success">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-shopping-cart"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Ürün Sayısı</p>
+									<h4 class="card-title" id="productcount"></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-stats card-danger">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-ban"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category" >Pasif Kategori Sayısı</p>
+									<h4 class="card-title" id="passivecategorycount"></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card card-stats card-primary">
+					<div class="card-body ">
+						<div class="row">
+							<div class="col-5">
+								<div class="icon-big text-center">
+									<i class="la la-check-circle"></i>
+								</div>
+							</div>
+							<div class="col-7 d-flex align-items-center">
+								<div class="numbers">
+									<p class="card-category">Aktif Kategori Sayısı</p>
+									<h4 class="card-title" id="activecategorycount"></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-md-3">
 				<div class="card card-stats card-warning">
