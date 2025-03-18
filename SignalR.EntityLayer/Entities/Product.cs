@@ -17,5 +17,6 @@ namespace SignalR.EntityLayer.Entities
 		public int CategoryId { get; set; }
 		public Category Category { get; set; } /* Bir Ürün bir Category Ait */
 		public List<OrderDetail> OrderDetails { get; set; }
-	}
+        public List <Basket>  Baskets { get; set; }
+    }
 }
