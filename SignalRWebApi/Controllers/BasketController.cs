@@ -56,5 +56,18 @@ namespace SignalRWebApi.Controllers
             });
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBasket(int id)
+        {
+            var basket = _basketService.TGetById(id);
+            if (basket == null)
+            {
+                return NotFound("Böyle bir ürün bulunamadı");
+            }
+            _basketService.TDelete(basket);
+            return Ok("Sepetteki seçilen ürün silindi");
+
+        }
     }
 }
