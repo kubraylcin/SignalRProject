@@ -2,7 +2,7 @@
     <div class="container">
         <div class="heading_container">
             <h2>
-                Masa Rezervasyonu Yap
+               Hemen Rezervasyon Yapın
             </h2>
         </div>
         <div class="row">
@@ -10,31 +10,29 @@
                 <div class="form_container">
                     <form action="">
                         <div>
-                            <input type="text" class="form-control" placeholder="Adınız" />
+                            <input type="text" class="form-control" placeholder="Ad Soyad" required />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Telefon Numaranız" />
+                            <input type="tel" class="form-control" placeholder="Telefon Numaranız 5XX" pattern="5[0-9]{9}" maxlength="10" required />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="E-posta Adresiniz" />
+                            <input type="email" class="form-control" placeholder="Mail Adresiniz" required />
                         </div>
                         <div>
-                            <select class="form-control nice-select wide">
-                                <option value="" disabled selected>
-                                    Kaç kişi olacaksınız?
-                                </option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                                <option value="">5</option>
+                            <select class="form-control nice-select wide" required>
+                                <option value="" disabled selected>Kaç kişi olacaksınız?</option>
+                                @for (int i = 1; i <= 10; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
                             </select>
                         </div>
                         <div>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" required>
                         </div>
                         <div class="btn_box">
-                            <button>
-                                Şimdi Rezervasyon Yap
+                            <button type="submit">
+                                Rezervasyon Yap
                             </button>
                         </div>
                     </form>
