@@ -28,7 +28,7 @@ namespace SignalRWebUI.Controllers
 			return View();
 
 		}
-		[HttpGet]
+        [HttpGet]
 		public IActionResult CreateAbout()
 		{
 			return View();

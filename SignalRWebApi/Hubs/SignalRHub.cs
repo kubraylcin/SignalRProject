@@ -13,18 +13,20 @@ namespace SignalRWebApi.Hubs
 		private readonly IOrderService _orderService;
 		private readonly IMoneyCaseService _moneyCaseService;
 		private readonly ITableNumberService _tableNumberService;
+		private readonly IReservationService _reservationService;
 
 
-		public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableNumberService tableNumberService)
-		{
-			_categoryService = categoryService;
-			_productService = productService;
-			_orderService = orderService;
-			_moneyCaseService = moneyCaseService;
-			_tableNumberService = tableNumberService;
-		}
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableNumberService tableNumberService, IReservationService reservationService)
+        {
+            _categoryService = categoryService;
+            _productService = productService;
+            _orderService = orderService;
+            _moneyCaseService = moneyCaseService;
+            _tableNumberService = tableNumberService;
+            _reservationService = reservationService;
+        }
 
-		public async Task SendStatistic() // client tarafında gelince bu methot  ınvoke ile  çağrılacak 
+        public async Task SendStatistic() // client tarafında gelince bu methot  ınvoke ile  çağrılacak 
         {
             var value = _categoryService.TCategoryCount();
             await Clients.All.SendAsync("ReceiveCategoryCount", value); //bu method içindeki ReceiveCategoryCount kullan 
@@ -83,11 +85,12 @@ namespace SignalRWebApi.Hubs
 
             var value3 = _tableNumberService.TTableNumberCount();
             await Clients.All.SendAsync("ReceiveTableNumberCount", value3);
-
-            
-
-            
         }
+		public async Task GetReservaitonList()
+		{
+			var values= _reservationService.TGetListAll();
+			await Clients.All.SendAsync("ReceiveReservationList", values);
+		}
 
     }
 }
