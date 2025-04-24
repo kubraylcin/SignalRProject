@@ -28,7 +28,10 @@
 
 				connection.on("ReceiveReservationList", (value) => {
 					console.log(value);
-
+					$("#reservationList").empty();
+					value.forEach((item, index) => {
+						$("#reservationList").append(`<li class="list-group-item">${item.name}</li>`)
+					});
 				});
 
 			});</script>
@@ -73,6 +76,9 @@
 							</tbody>
 						</table>
 						<a href="/Reservation/CreateReservation/" class="btn btn-outline-primary">Yeni Rezervasyon Girişi</a>
+						<div class="col-md-8">
+							<ul class="list-group" id="reservationList"></ul>
+						</div>
 					</div>
 				</div>
 			</div>
