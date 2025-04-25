@@ -17,9 +17,8 @@ namespace SignalRWebApi.Controllers
 		{
 			_notificationService = notificationService;
 		}
-
 		[HttpGet]
-		public IActionResult NotificationList() 
+		public IActionResult NotificationList()
 		{
 			return Ok(_notificationService.TGetListAll());
 		}
@@ -34,33 +33,33 @@ namespace SignalRWebApi.Controllers
 			return Ok(_notificationService.TGetAllNotificationByFalse());
 		}
 		[HttpPost]
-		public IActionResult CreateNotification(CreateNotificationDto createNotificationDto) 
+		public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
 		{
 			Notification notification = new Notification()
 			{
 				Description = createNotificationDto.Description,
+				Date = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
 				Icon = createNotificationDto.Icon,
-				Status= false,
-				Type= createNotificationDto.Type,
-				Date= Convert.ToDateTime(DateTime.Now.ToShortDateString())
+				Status = false,
+				Type = createNotificationDto.Type
 			};
 			_notificationService.TAdd(notification);
-			return Ok("Ekleeme işlemi başarı ile gerçekleşti");
+			return Ok("Ekleme işlemi başarıyla yapıldı");
 		}
 
 		[HttpDelete("{id}")]
 		public IActionResult DeleteNotification(int id)
 		{
-			var notification = _notificationService.TGetById(id);
-			_notificationService.TDelete(notification);
-			return Ok("Bildirim alanı bilgisi silindi");
-		}
+			var value = _notificationService.TGetById(id);
 
+			_notificationService.TDelete(value);
+			return Ok("Bildirim Silindi");
+		}
 		[HttpGet("{id}")]
 		public IActionResult GetNotification(int id)
 		{
-			var notification = _notificationService.TGetById(id);
-			return Ok(notification);
+			var value = _notificationService.TGetById(id);
+			return Ok(value);
 		}
 		[HttpPut]
 		public IActionResult UpdateNotification(UpdateNotificationDto updateNotificationDto)
@@ -69,13 +68,28 @@ namespace SignalRWebApi.Controllers
 			{
 				NotificationId = updateNotificationDto.NotificationId,
 				Description = updateNotificationDto.Description,
+				Date = updateNotificationDto.Date,
 				Icon = updateNotificationDto.Icon,
 				Status = updateNotificationDto.Status,
-				Type = updateNotificationDto.Type,
-				Date = updateNotificationDto.Date
+				Type = updateNotificationDto.Type
 			};
 			_notificationService.TUpdate(notification);
-			return Ok("Güncelleme işlemi başarı ile gerçekleşti");
+			return Ok("Bildirim Güncellendi.");
+		}
+
+		[HttpGet("NotificationStatusChangeToFalse/{id}")]
+		public IActionResult NotificationStatusChangeToFalse(int id)
+		{
+			_notificationService.TNotificationStatusChangeToFalse(id);
+			return Ok("Güncelleme Yapıldı");
+		}
+
+
+		[HttpGet("NotificationStatusChangeToTrue/{id}")]
+		public IActionResult NotificationStatusChangeToTrue(int id)
+		{
+			_notificationService.TNotificationStatusChangeToTrue(id);
+			return Ok("Güncelleme Yapıldı");
 		}
 	}
 }

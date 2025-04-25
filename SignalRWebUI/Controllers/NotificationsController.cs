@@ -24,14 +24,14 @@ namespace SignalRWebUI.Controllers
 				var values = JsonConvert.DeserializeObject<List<ResultNotificationDto>>(jsonData);
 				return View(values);
 			}
-			return View();
-
+			return View(new List<ResultNotificationDto>());
 		}
 		[HttpGet]
 		public IActionResult CreateNotification()
 		{
 			return View();
 		}
+
 		[HttpPost]
 		public async Task<IActionResult> CreateNotification(CreateNotificationDto createNotificationDto)
 		{
@@ -45,6 +45,7 @@ namespace SignalRWebUI.Controllers
 			}
 			return View();
 		}
+
 		public async Task<IActionResult> DeleteNotification(int id)
 		{
 			var client = _httpClientFactory.CreateClient();
@@ -54,6 +55,7 @@ namespace SignalRWebUI.Controllers
 				return RedirectToAction("Index");
 			}
 			return View();
+
 		}
 		[HttpGet]
 		public async Task<IActionResult> UpdateNotification(int id)
@@ -66,14 +68,14 @@ namespace SignalRWebUI.Controllers
 				var values = JsonConvert.DeserializeObject<UpdateNotificationDto>(jsonData);
 				return View(values);
 			}
-			return View(new List<ResultNotificationDto>());
+			return View();
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> UpdateNotification(UpdateNotificationDto updateNotificationtDto)
+		public async Task<IActionResult> UpdateNotification(UpdateNotificationDto updateNotificationDto)
 		{
 			var client = _httpClientFactory.CreateClient();
-			var jsonData = JsonConvert.SerializeObject(updateNotificationtDto);
+			var jsonData = JsonConvert.SerializeObject(updateNotificationDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 			var responseMessage = await client.PutAsync("https://localhost:7087/api/Notification", stringContent);
 			if (responseMessage.IsSuccessStatusCode)
@@ -82,5 +84,20 @@ namespace SignalRWebUI.Controllers
 			}
 			return View();
 		}
+
+		public async Task<IActionResult> NotificationStatusChangeToTrue(int id)
+		{
+			var client = _httpClientFactory.CreateClient();
+			await client.GetAsync($"https://localhost:7087/api/Notification/NotificationStatusChangeToTrue/{id}");
+			return RedirectToAction("Index");
+		}
+		public async Task<IActionResult> NotificationStatusChangeToFalse(int id)
+		{
+			var client = _httpClientFactory.CreateClient();
+			await client.GetAsync($"https://localhost:7087/api/Notification/NotificationStatusChangeToFalse/{id}");
+			return RedirectToAction("Index");
+		}
 	}
 }
+
+

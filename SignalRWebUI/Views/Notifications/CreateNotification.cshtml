@@ -1,37 +1,40 @@
 ﻿@model CreateNotificationDto
 @{
-    ViewData["Title"] = "CreateNotification";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "CreateNotification";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+
 
 <div class="content">
 	<div class="container-fluid">
-		<h4 class="page-title">Bildirim Ekleme İşlemleri</h4>
+		<h4 class="page-title">Bildirim İşlemleri</h4>
 		<div class="row">
 			<div class="col-md-12">
 				<form method="post">
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title">Yeni Bildirim Ekle</div>
+							<div class="card-title">Yeni Bildirim Yazı Girişi</div>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="notificationtype">Bildirim Türü</label>
-								<input type="text" class="form-control" asp-for="Type" id="notificationtype">
+								<label for="Type">Bildirim Tipini Giriniz</label>
+								<input type="text" class="form-control" asp-for="Type" id="Type">
 							</div>
-						</div><div class="card-body">
+						</div>
+						<div class="card-body">
 							<div class="form-group">
-								<label for="notificationıcon">Bildirim İconu</label>
-								<input type="text" class="form-control" asp-for="Icon" id="notificationıcon">
+								<label for="Icon">Bildirim Iconu Giriniz</label>
+								<input type="text" class="form-control" asp-for="Icon" id="Icon">
 							</div>
-						</div><div class="card-body">
+						</div>
+						<div class="card-body">
 							<div class="form-group">
-								<label for="notificationtype"> Açıklama</label>
-								<input type="text" class="form-control" asp-for="Description" id="notificationtype">
+								<label for="Description">Açıklamayı Giriniz</label>
+								<input type="text" class="form-control" asp-for="Description" id="Description">
 							</div>
-						
+						</div>
 						<div class="card-action">
-							<button class="btn btn-success">Bildirimi Ekle</button>
+							<button class="btn btn-primary">Bildirim Ekle</button>
 						</div>
 					</div>
 				</form>
@@ -39,4 +42,3 @@
 		</div>
 	</div>
 </div>
-

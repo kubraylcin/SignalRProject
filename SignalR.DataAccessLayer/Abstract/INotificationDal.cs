@@ -11,5 +11,7 @@ namespace SignalR.DataAccessLayer.Abstract
 	{
 		int NotificationCountByStatusFalse();//okunmayanların sayısı
 		List<Notification> GetAllNotificationByFalse();
+		void NotificationStatusChangeToTrue(int id);
+		void NotificationStatusChangeToFalse(int id);
 	}
 }
