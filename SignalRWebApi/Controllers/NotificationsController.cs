@@ -20,5 +20,10 @@ namespace SignalRWebApi.Controllers
 		{
 			return Ok(_notificationService.TGetListAll());
 		}
+		[HttpGet("NotificationCountByStatusFalse")]
+		public IActionResult NotificationCountByStatusFalse()
+		{
+			return Ok(_notificationService.TNotificationCountByStatusFalse());
+		}
 	}
 }
