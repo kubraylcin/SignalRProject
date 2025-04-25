@@ -14,9 +14,9 @@ namespace SignalRWebApi.Hubs
 		private readonly IMoneyCaseService _moneyCaseService;
 		private readonly ITableNumberService _tableNumberService;
 		private readonly IReservationService _reservationService;
+		private readonly INotificationService _notificationService;
 
-
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableNumberService tableNumberService, IReservationService reservationService)
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableNumberService tableNumberService, IReservationService reservationService, INotificationService notificationService)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -24,6 +24,7 @@ namespace SignalRWebApi.Hubs
             _moneyCaseService = moneyCaseService;
             _tableNumberService = tableNumberService;
             _reservationService = reservationService;
+			_notificationService = notificationService;
         }
 
         public async Task SendStatistic() // client tarafında gelince bu methot  ınvoke ile  çağrılacak 
@@ -92,5 +93,11 @@ namespace SignalRWebApi.Hubs
 			await Clients.All.SendAsync("ReceiveReservationList", values);
 		}
 
-    }
+		public async Task SendNotification()
+		{
+			var value = _notificationService.TNotificationCountByStatusFalse();
+			await Clients.All.SendAsync("ReceiveNotificationCountByFalse", value);
+		}
+
+	}
 }
