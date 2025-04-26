@@ -20,22 +20,22 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TAdd(TableNumber entity)
 		{
-			throw new NotImplementedException();
+			_tableNumberDal.Add(entity);
 		}
 
 		public void TDelete(TableNumber entity)
 		{
-			throw new NotImplementedException();
+			_tableNumberDal.Delete(entity);
 		}
 
 		public TableNumber TGetById(int id)
 		{
-			throw new NotImplementedException();
+			return _tableNumberDal.GetById(id);
 		}
 
 		public List<TableNumber> TGetListAll()
 		{
-			throw new NotImplementedException();
+			return _tableNumberDal.GetListAll();
 		}
 
 		public int TTableNumberCount()
@@ -45,7 +45,7 @@ namespace SignalR.BusinessLayer.Concrete
 
 		public void TUpdate(TableNumber entity)
 		{
-			throw new NotImplementedException();
+			_tableNumberDal.Update(entity);
 		}
 	}
 }
