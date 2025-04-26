@@ -102,5 +102,12 @@ namespace SignalRWebApi.Hubs
 			await Clients.All.SendAsync("ReceiveNotificationListByFalse", natificationListByFalse);
 		}
 
+		public async Task GetTableNumberStatus()
+		{
+			var value = _tableNumberService.TGetListAll();
+			await Clients.All.SendAsync("ReceiveTableNumberStatus",value);
+		}
+
+
 	}
 }
