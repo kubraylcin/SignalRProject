@@ -1,0 +1,63 @@
+﻿@model RegisterDto
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v10 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="~/colorlib-regform-26/fonts/linearicons/style.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/colorlib-regform-26/css/style.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="inner">
+            <img src="~/colorlib-regform-26/images/image-1.png" alt="" class="image-1">
+            <form method="post">
+                <h3>Yeni Kullanıcı Kaydı</h3>
+
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Adınız" required />
+                </div>
+
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input asp-for="Surname" type="text" class="form-control" placeholder="Soyadınız" required />
+                </div>
+
+                <div class="form-holder">
+                    <span class="lnr lnr-phone-handset"></span>
+                    <input asp-for="UserName" type="text" class="form-control" placeholder="Kullanıcı Adınız" required />
+                </div>
+
+                <div class="form-holder">
+                    <span class="lnr lnr-envelope"></span>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Mail" required />
+                </div>
+
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Parola" required />
+                </div>
+
+                <button type="submit">
+                    <span>Kayıt Ol</span>
+                </button>
+            </form>
+            <img src="~/colorlib-regform-26/images/image-2.png" alt="" class="image-2">
+        </div>
+    </div>
+
+    <script src="~/colorlib-regform-26/js/jquery-3.3.1.min.js"></script>
+    <script src="~/colorlib-regform-26/js/main.js"></script>
+</body>
+</html>
