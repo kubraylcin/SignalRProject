@@ -26,8 +26,12 @@ namespace SignalRWebApi.Hubs
             _reservationService = reservationService;
 			_notificationService = notificationService;
         }
-
-        public async Task SendStatistic() // client tarafında gelince bu methot  ınvoke ile  çağrılacak 
+		//static bir değişken, sınıfa (class'a) aittir, nesneye (instance'a) değil. 
+		public static int clientCount { get; set; } = 0; //Yani SignalRHub sınıfından kaç tane nesne (kaç bağlantı) oluşursa oluşsun,
+														 //tek bir clientCount değişkeni olur ve herkes onu paylaşır.
+														 //Static olmasaydı, her bağlantıda SignalRHub için yeni bir nesne(instance) oluşurdu ve clientCount hep 0'dan başlardı.
+														 //static olmalı çünkü Çünkü her kullanıcı bağlandığında SignalRHub için yeni bir örnek (instance) oluşturuluyor.
+		public async Task SendStatistic() // client tarafında gelince bu methot  ınvoke ile  çağrılacak 
         {
             var value = _categoryService.TCategoryCount();
             await Clients.All.SendAsync("ReceiveCategoryCount", value); //bu method içindeki ReceiveCategoryCount kullan 
@@ -112,5 +116,20 @@ namespace SignalRWebApi.Hubs
 		{
 			await Clients.All.SendAsync("ReceiveMessage", user, message);
 		}
-	}
+
+        public override async Task OnConnectedAsync()
+        {
+			clientCount++;
+            // Tüm bağlı client'lara (kullanıcılara) güncel client sayısını gönderiyoruz.
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+			await base.OnConnectedAsync();
+        }
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+			clientCount--;
+			await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+			await base.OnDisconnectedAsync(exception);
+            
+        }
+    }
 }
