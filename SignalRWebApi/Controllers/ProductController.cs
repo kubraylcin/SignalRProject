@@ -17,7 +17,7 @@ namespace SignalRWebApi.Controllers
 		private readonly IProductService _productService;
 		private readonly IMapper _mapper;
 
-		public object Description { get; private set; }
+		
 
 		public ProductController(IProductService productService, IMapper mapper)
 		{
