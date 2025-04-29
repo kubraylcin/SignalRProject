@@ -37,12 +37,13 @@ namespace SignalRWebApi.Controllers
 				Description = createDiscountDto.Description,
 				ImageUrl = createDiscountDto.ImageUrl,
 				Title = createDiscountDto.Title,
-			});
+				Status = false
+			}); 
 
 			return Ok("İndirim Bilgisi Eklendi");
 		}
 
-		[HttpDelete("{Id}")]
+		[HttpDelete("{id}")]
 
 		public IActionResult DeleteDiscount(int id)
 		{
@@ -55,11 +56,13 @@ namespace SignalRWebApi.Controllers
 		{
 			_discountService.TUpdate(new Discount()
 			{
+				
 				Amount = updateDiscountDto.Amount,
 				Description = updateDiscountDto.Description,
 				ImageUrl = updateDiscountDto.ImageUrl,
 				Title = updateDiscountDto.Title,
 				DiscountId = updateDiscountDto.DiscountId,
+				Status=false
 			});
 
 			return Ok("İndirim Bilgisi Güncellendi");
@@ -70,6 +73,19 @@ namespace SignalRWebApi.Controllers
 			var value = _discountService.TGetById(Id);
 
 			return Ok(value);
+		}
+
+		[HttpGet("ChangeStatusToTrue/{id}")]
+		public IActionResult ChangeStatusToTrue(int id)
+		{
+			_discountService.TChangeStatusToTrue(id);
+			return Ok("Ürün İndirimi Aktif Hale Getirildi");
+		}
+		[HttpGet("ChangeStatusToFalse/{id}")]
+		public IActionResult ChangeStatusToFalse(int id)
+		{
+			_discountService.TChangeStatusToFalse(id);
+			return Ok("Ürün İndirimi Pasif Hale Getirildi");
 		}
 	}
 }
