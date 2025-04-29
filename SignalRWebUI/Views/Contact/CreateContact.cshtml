@@ -1,39 +1,72 @@
 ﻿@model CreateContactDto
+
 @{
-    ViewData["Title"] = "CreateContact";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "CreateContact";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+
 
 <div class="content">
 	<div class="container-fluid">
-		<h4 class="page-title">İletişim Bilgisi Ekleme İşlemleri</h4>
+		<h4 class="page-title">Anasayfa İletişim Bilgi İşlemleri</h4>
 		<div class="row">
 			<div class="col-md-12">
 				<form method="post">
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title">Yeni İletişim Bilgisi Girişi</div>
+							<div class="card-title">Yeni İletişim Yazı Girişi</div>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="location">Konum</label>
-								<input type="text" class="form-control" asp-for="Location" id="location">
+								<label for="Location">Lokasyon Bilgisini Giriniz</label>
+								<input type="text" class="form-control" asp-for="Location" id="Location">
 							</div>
+						</div>
+						<div class="card-body">
 							<div class="form-group">
-								<label for="phone">Telefon</label>
-								<input type="text" class="form-control" asp-for="Phone" id="phone">
+								<label for="Phone">Telefon Numaranızı Giriniz</label>
+								<input type="text" class="form-control" asp-for="Phone" id="Phone">
 							</div>
+						</div>
+						<div class="card-body">
 							<div class="form-group">
-								<label for="mail">E-Posta</label>
-								<input type="email" class="form-control" asp-for="Mail" id="mail">
+								<label for="Mail">Mail Adresi Giriniz</label>
+								<input type="email" class="form-control" asp-for="Mail" id="Mail">
 							</div>
+						</div>
+						<div class="card-body">
 							<div class="form-group">
-								<label for="footerDescription">Açıklama</label>
-								<textarea rows="5" class="form-control" asp-for="FooterDescription" id="footerDescription"></textarea>
+								<label for="FooterTitle">Alt Başlık Giriniz</label>
+								<input type="text" class="form-control" asp-for="FooterTitle" id="FooterTitle">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="OpenDays">Açık Günleri Giriniz</label>
+								<input type="text" class="form-control" asp-for="OpenDays" id="MaOpenDaysil">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="OpenDaysDescription">Açık Günler Açıklamasını Giriniz</label>
+								<input type="mail" class="form-control" asp-for="OpenDaysDescription" id="OpenDaysDescription">
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="OpenHours">Açık Saatleri Giriniz</label>
+								<input type="text" class="form-control" asp-for="OpenHourse" id="OpenHours">
+							</div>
+						</div>
+
+						<div class="card-body">
+							<div class="form-group">
+								<label for="description">Açıklama Giriniz</label>
+								<textarea rows="5" class="form-control" asp-for="FooterDescription" id="description"></textarea>
 							</div>
 						</div>
 						<div class="card-action">
-							<button class="btn btn-success">İletişim Bilgisi Ekle</button>
+							<button class="btn btn-primary">İletişim Bilgi Yazısını Ekle</button>
 						</div>
 					</div>
 				</form>
@@ -41,4 +74,3 @@
 		</div>
 	</div>
 </div>
-
