@@ -38,6 +38,16 @@ namespace SignalR.BusinessLayer.Concrete
 			return _reservationDal.GetListAll();
 		}
 
+		public void TReservationStatusApproved(int id)
+		{
+			_reservationDal.ReservationStatusApproved(id);
+		}
+
+		public void TReservationStatusCancelled(int id)
+		{
+			_reservationDal.ReservationStatusCancelled(id);	
+		}
+
 		public void TUpdate(Reservation entity)
 		{
 			_reservationDal.Update(entity);

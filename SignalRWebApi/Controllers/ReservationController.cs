@@ -34,6 +34,7 @@ namespace SignalRWebApi.Controllers
 				Name = createReservationDto.Name,
 				PersonCount = createReservationDto.PersonCount,
 				Phone = createReservationDto.Phone,
+				Description = createReservationDto.Description,
 			};
 			_reservationService.TAdd(reservation);
 			return Ok("Rezervasyon Yapıldı");
@@ -52,6 +53,7 @@ namespace SignalRWebApi.Controllers
 		{
 			Reservation reservation = new Reservation()
 			{
+				Description= updateReservationDto.Description,	
 				Email = updateReservationDto.Email,
 				ReservationId = updateReservationDto.ReservationId,
 				Name = updateReservationDto.Name,
@@ -68,6 +70,18 @@ namespace SignalRWebApi.Controllers
 		{
 			var value = _reservationService.TGetById(id);
 			return Ok(value);
+		}
+		[HttpGet("ReservationStatusApproved/{id}")]
+		public IActionResult ReservationStatusApproved(int id)
+		{
+			_reservationService.TReservationStatusApproved(id);
+			return Ok("Rezervasyon Durumu Değiştirildi");
+		}
+		[HttpGet("ReservationStatusCancelled/{id}")]
+		public IActionResult ReservationStatusCancelled(int id)
+		{
+			_reservationService.TReservationStatusCancelled(id);
+			return Ok("Rezervasyon Durumu Değiştirildi");
 		}
 	}
 }
