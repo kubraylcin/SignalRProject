@@ -87,5 +87,11 @@ namespace SignalRWebApi.Controllers
 			_discountService.TChangeStatusToFalse(id);
 			return Ok("Ürün İndirimi Pasif Hale Getirildi");
 		}
-	}
+        [HttpGet("GetListByStatusTrue")]
+        public IActionResult GetListByStatusTrue()
+        {
+            _discountService.TGetListByStatusTrue();
+            return Ok(_discountService.TGetListByStatusTrue());
+        }
+    }
 }
