@@ -77,7 +77,7 @@ namespace SignalRWebUI.Controllers
 			var jsonData = JsonConvert.SerializeObject(updateSliderDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-			var responseMessage = await client.PutAsync($"https://localhost:7087/api/SliderSlider/", stringContent);
+			var responseMessage = await client.PutAsync($"https://localhost:7087/api/Slider", stringContent);
 
 			if (responseMessage.IsSuccessStatusCode)
 			{
