@@ -144,5 +144,11 @@ namespace SignalRWebApi.Controllers
 			var result = _mapper.Map<ResultProductDto>(product);
 			return Ok(result);
 		}
+		[HttpGet("GetLast9Products")]
+		public IActionResult GetLast9Products()
+		{
+			var value = _productService.TGetLast9Products();
+			return Ok(value);
+		}
 	}
 }
