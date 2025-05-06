@@ -90,6 +90,21 @@ namespace SignalRWebApi.Hubs
 
             var value3 = _tableNumberService.TTableNumberCount();
             await Clients.All.SendAsync("ReceiveTableNumberCount", value3);
+
+            var value5 = _productService.TProductPriceAvg();
+            await Clients.All.SendAsync("ReceiveProductPriceAvg", value5);
+
+            var value6 = _productService.TProductPriceByHamburger();
+            await Clients.All.SendAsync("ReceivePriceByHamburger", value6);
+
+            var value7 = _productService.TProducCountByNameDrink();
+            await Clients.All.SendAsync("ReceiveProducCountByNameDrink", value7);
+
+            var value8 = _orderService.TTotalOrderCount();
+            await Clients.All.SendAsync("ReceiveTotalOrderCount", value8);
+
+            var value9 = _productService.TTotalPriceByDrinkCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", value9);
         }
 		public async Task GetReservaitonList()
 		{
