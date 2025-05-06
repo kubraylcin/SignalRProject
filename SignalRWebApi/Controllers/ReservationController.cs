@@ -1,88 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.ReservationDto;
 using SignalR.EntityLayer.Entities;
 
 namespace SignalRWebApi.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ReservationController : ControllerBase
-	{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ReservationController : ControllerBase
+    {
+        private readonly IReservationService _reservationService;
+        private readonly IMapper _mapper;
 
-		private readonly IReservationService _reservationService;
+        public ReservationController(IReservationService reservationService, IMapper mapper)
+        {
+            _reservationService = reservationService;
+            _mapper = mapper;
+        }
 
-		public ReservationController(IReservationService reservationService)
-		{
-			_reservationService = reservationService;
-		}
+        [HttpGet]
+        public IActionResult ReservationList()
+        {
+            var values = _reservationService.TGetListAll();
+            var dtoList = _mapper.Map<List<ResultReservationDto>>(values);
+            return Ok(dtoList);
+        }
 
-		[HttpGet]
-		public IActionResult ReservationList()
-		{
-			var values = _reservationService.TGetListAll();
-			return Ok(values);
-		}
+        [HttpPost]
+        public IActionResult CreateReservation(CreateReservationDto createReservationDto)
+        {
+            var reservation = _mapper.Map<Reservation>(createReservationDto);
+            _reservationService.TAdd(reservation);
+            return Ok("Rezervasyon Yapıldı");
+        }
 
-		[HttpPost]
-		public IActionResult CreateReservation(CreateReservationDto createReservationDto)
-		{
-			Reservation reservation = new Reservation()
-			{
-				Email = createReservationDto.Email,
-				Date = createReservationDto.Date,
-				Name = createReservationDto.Name,
-				PersonCount = createReservationDto.PersonCount,
-				Phone = createReservationDto.Phone,
-				Description = createReservationDto.Description,
-			};
-			_reservationService.TAdd(reservation);
-			return Ok("Rezervasyon Yapıldı");
-		}
+        [HttpDelete("{id}")]
+        public IActionResult DeleteReservation(int id)
+        {
+            var value = _reservationService.TGetById(id);
+            _reservationService.TDelete(value);
+            return Ok("Rezervasyon silindi");
+        }
 
-		[HttpDelete("{id}")]
-		public IActionResult DeleteReservation(int id)
-		{
-			var value = _reservationService.TGetById(id);
-			_reservationService.TDelete(value);
-			return Ok("Rezervasyon silindi");
-		}
+        [HttpPut]
+        public IActionResult UpdateReservation(UpdateReservationDto updateReservationDto)
+        {
+            var reservation = _mapper.Map<Reservation>(updateReservationDto);
+            _reservationService.TUpdate(reservation);
+            return Ok("Rezervasyon Güncellendi");
+        }
 
-		[HttpPut]
-		public IActionResult UpdateReservation(UpdateReservationDto updateReservationDto)
-		{
-			Reservation reservation = new Reservation()
-			{
-				Description= updateReservationDto.Description,	
-				Email = updateReservationDto.Email,
-				ReservationId = updateReservationDto.ReservationId,
-				Name = updateReservationDto.Name,
-				Phone = updateReservationDto.Phone,
-				PersonCount = updateReservationDto.PersonCount,
-				Date = updateReservationDto.Date,
-			};
+        [HttpGet("{id}")]
+        public IActionResult GetReservation(int id)
+        {
+            var value = _reservationService.TGetById(id);
+            var dto = _mapper.Map<ResultReservationDto>(value);
+            return Ok(dto);
+        }
 
-			_reservationService.TUpdate(reservation);
-			return Ok("Rezervasyon Güncellendi");
-		}
-		[HttpGet("{id}")]
-		public IActionResult GetReservation(int id)
-		{
-			var value = _reservationService.TGetById(id);
-			return Ok(value);
-		}
-		[HttpGet("ReservationStatusApproved/{id}")]
-		public IActionResult ReservationStatusApproved(int id)
-		{
-			_reservationService.TReservationStatusApproved(id);
-			return Ok("Rezervasyon Durumu Değiştirildi");
-		}
-		[HttpGet("ReservationStatusCancelled/{id}")]
-		public IActionResult ReservationStatusCancelled(int id)
-		{
-			_reservationService.TReservationStatusCancelled(id);
-			return Ok("Rezervasyon Durumu Değiştirildi");
-		}
-	}
+        [HttpGet("ReservationStatusApproved/{id}")]
+        public IActionResult ReservationStatusApproved(int id)
+        {
+            _reservationService.TReservationStatusApproved(id);
+            return Ok("Rezervasyon Durumu Onaylandı");
+        }
+
+        [HttpGet("ReservationStatusCancelled/{id}")]
+        public IActionResult ReservationStatusCancelled(int id)
+        {
+            _reservationService.TReservationStatusCancelled(id);
+            return Ok("Rezervasyon Durumu İptal Edildi");
+        }
+    }
 }
-
