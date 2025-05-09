@@ -3,6 +3,7 @@ using AutoMapper;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.ReservationDto;
 using SignalR.EntityLayer.Entities;
+using FluentValidation;
 
 namespace SignalRWebApi.Controllers
 {
@@ -12,11 +13,13 @@ namespace SignalRWebApi.Controllers
     {
         private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
+        private readonly IValidator<CreateReservationDto> _validator;
 
-        public ReservationController(IReservationService reservationService, IMapper mapper)
+        public ReservationController(IReservationService reservationService, IMapper mapper, IValidator<CreateReservationDto> validator)
         {
             _reservationService = reservationService;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -30,9 +33,16 @@ namespace SignalRWebApi.Controllers
         [HttpPost]
         public IActionResult CreateReservation(CreateReservationDto createReservationDto)
         {
+            
+            var validationResult =_validator.Validate(createReservationDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
             var reservation = _mapper.Map<Reservation>(createReservationDto);
             _reservationService.TAdd(reservation);
             return Ok("Rezervasyon Yapıldı");
+
         }
 
         [HttpDelete("{id}")]
