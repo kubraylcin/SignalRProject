@@ -24,7 +24,7 @@
 
         <style>
             .custom-card {
-                height: 100px; /* Kart yüksekliğini sabitle */
+                height: 100px;
             }
 
             .icon-box {
@@ -48,11 +48,15 @@
                             <div class="icon-box me-3">
                                 @if (!item.Status)
                                 {
-                                    <a href="/Menu/Index/@item.TableNumberId"><i class="fa fa-check"></i></a>
+                                    <a href="/Menu/Index/@item.TableNumberId" title="Masa Seç">
+                                        <i class="fa fa-check text-white"></i>
+                                    </a>
                                 }
                                 else
                                 {
-                                    <i class="fa fa-times"></i>
+                                    <a href="/Baskets/Index/@item.TableNumberId" title="Sepete Git">
+                                        <i class="fa fa-shopping-cart text-white"></i>
+                                    </a>
                                 }
                             </div>
 
@@ -67,8 +71,6 @@
                 </div>
             }
         </div>
-
-
     </div>
 
     @await Component.InvokeAsync("_UILayoutFooterComponentPartial")
