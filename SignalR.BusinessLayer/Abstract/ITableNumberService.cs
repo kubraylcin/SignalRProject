@@ -10,5 +10,7 @@ namespace SignalR.BusinessLayer.Abstract
 	public interface ITableNumberService: IGenericService<TableNumber>
 	{
 		public int TTableNumberCount();
-	}
+        void TChangeTableNumberStatusToFalse(int id);
+        void TChangeTableNumberStatusToTrue(int id);
+    }
 }

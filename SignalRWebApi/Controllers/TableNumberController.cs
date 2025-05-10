@@ -66,5 +66,34 @@ namespace SignalRWebApi.Controllers
             var dto = _mapper.Map<ResultTableNumberDto>(value);
             return Ok(dto);
         }
+
+        [HttpGet("ChangeTableNumberStatusToFalse")]
+        public IActionResult ChangeTableNumberStatusToFalse(int id)
+        {
+            var table = _tableNumberService.TGetById(id);
+            if (table == null)
+            {
+                return NotFound("Masa bulunamadı");
+            }
+
+            table.Status = false;
+            _tableNumberService.TUpdate(table);
+            return Ok("Masa durumu pasif yapıldı");
+        }
+
+        [HttpGet("ChangeTableNumberStatusToTrue")]
+        public IActionResult ChangeTableNumberStatusToTrue(int id)
+        {
+            var table = _tableNumberService.TGetById(id);
+            if (table == null)
+            {
+                return NotFound("Masa bulunamadı");
+            }
+
+            table.Status = true;
+            _tableNumberService.TUpdate(table);
+            return Ok("Masa durumu aktif yapıldı");
+        }
+
     }
 }

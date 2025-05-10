@@ -23,7 +23,17 @@ namespace SignalR.BusinessLayer.Concrete
 			_tableNumberDal.Add(entity);
 		}
 
-		public void TDelete(TableNumber entity)
+        public void TChangeTableNumberStatusToFalse(int id)
+        {
+            _tableNumberDal.ChangeTableNumberStatusToFalse(id);
+        }
+
+        public void TChangeTableNumberStatusToTrue(int id)
+        {
+            _tableNumberDal.ChangeTableNumberStatusToTrue(id);
+        }
+
+        public void TDelete(TableNumber entity)
 		{
 			_tableNumberDal.Delete(entity);
 		}

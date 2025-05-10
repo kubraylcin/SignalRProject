@@ -16,7 +16,23 @@ namespace SignalR.DataAccessLayer.EntityFramework
 		{
 		}
 
-		public int TableNumberCount()
+        public void ChangeTableNumberStatusToFalse(int id)
+        {
+            using var context = new SignalRContext();
+			var value = context.TableNumbers.Where(x => x.TableNumberId == id).FirstOrDefault();
+			value.Status = false;
+			context.SaveChanges();
+        }
+
+        public void ChangeTableNumberStatusToTrue(int id)
+        {
+            using var context = new SignalRContext();
+            var value = context.TableNumbers.Where(x => x.TableNumberId == id).FirstOrDefault();
+            value.Status = true;
+            context.SaveChanges();
+        }
+
+        public int TableNumberCount()
 		{
 			using var context= new SignalRContext();
 			return context.TableNumbers.Count();

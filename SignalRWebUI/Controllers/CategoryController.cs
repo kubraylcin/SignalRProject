@@ -75,7 +75,7 @@ namespace SignalRWebUI.Controllers
 		public async Task<IActionResult> UpdateCategory( UpdateCategoryDto updateCategoryDto)
 		{
 			// API'ye güncellenmiş veriyi gönder
-			updateCategoryDto.Status = true; // Varsayılan bir durum
+			//updateCategoryDto.Status = true; // Varsayılan bir durum
 			var client = _httpClientFactory.CreateClient();
 			var jsonData = JsonConvert.SerializeObject(updateCategoryDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
