@@ -50,7 +50,6 @@ namespace SignalRWebApi.Controllers
             {
                 ProductId= createBasketDto.ProductId,
                 Count = 1,
-                TableNumberId = 3,
                 Price = context.Products.Where(x => x.ProductId == createBasketDto.ProductId).Select(y => y.Price).FirstOrDefault(),
                 TotalPrice= 0
             });
